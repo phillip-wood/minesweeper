@@ -67,6 +67,9 @@ function checkForWin() {
 
   if (allMinesMarked === true && allNonMinesVisible === true){
     lib.displayMessage('WINNER!')
+    playSound2()
+
+    
   }
 }
 
@@ -87,4 +90,7 @@ function countSurroundingMines (cell) {
 
 }
 
-
+function playSound2(){
+  let audio2 = new Audio('clap.wav');
+  audio2.play();
+ }
