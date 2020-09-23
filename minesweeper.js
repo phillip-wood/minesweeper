@@ -3,19 +3,45 @@ document.addEventListener('click', checkForWin)
 document.addEventListener('contextmenu', checkForWin)
 
 // Define your `board` object here!
-var board = {cells:[{row: 0, col: 0, isMine: true, hidden: true},{row: 1, col: 0, isMine: false, hidden: true},{row: 2, col: 0, isMine: false, hidden: true},{row: 3, col: 0, isMine: false, hidden: true},
-                    {row: 0, col: 1, isMine: false, hidden: true},{row: 1, col: 1, isMine: false, hidden: true},{row: 2, col: 1, isMine: false, hidden: true},{row: 3, col: 1, isMine: false, hidden: true},
-                    {row: 0, col: 2, isMine: false, hidden: true},{row: 1, col: 2, isMine: false, hidden: true},{row: 2, col: 2, isMine: false, hidden: true},{row: 3, col: 2, isMine: false, hidden: true},
-                    {row: 0, col: 3, isMine: false, hidden: true},{row: 1, col: 3, isMine: false, hidden: true},{row: 2, col: 3, isMine: false, hidden: true},{row: 3, col: 3, isMine: false, hidden: true}
+var board = {cells:[]}
+let size = 4;
+let percentOfMines = .7;
 
-]}
+function createBoard() {
+//create board using loop and user selected size//
+  for(i = 0; i < size; i++){
+    
+    for(x = 0; x < size; x++){
+      board.cells.push({
+        row: i,
+        col: x,
+        isMine: Math.random() >= percentOfMines,
+        hidden: true
+      })
+    }
+  }
+}
+
+function reset(){
+  document.querySelector(".board").innerHTML = " ";
+  board = {cells:[]}
+  startGame()
+}
+
+function updateSize(value){
+  size = value;
+  console.log("size")
+  reset()
+}
+
 
 function startGame () {
   // Don't remove this function call: it makes the game work!
   // add and populate the surroundingMines property
-
-  lib.initBoard()
+  createBoard();
   
+  lib.initBoard()
+
 
 
 
@@ -31,16 +57,16 @@ function startGame () {
 // Define this function to look for a win condition:
 // 1. Are all of the cells that are NOT mines visible?
 // 2. Are all of the mines marked?
-function checkForWin () {
+function checkForWin() {
   mines = board.cells.filter(cell => cell.isMine === true);
   nonMines = board.cells.filter(cell => cell.isMine === false);
   allMinesMarked = mines.every(cell => cell.isMarked === true);
   allNonMinesVisible = nonMines.every(cell => cell.hidden === false);
-  console.log(allNonMinesVisible);
+  
 
 
   if (allMinesMarked === true && allNonMinesVisible === true){
-    lib.displayMessage('You win!')
+    lib.displayMessage('WINNER!')
   }
 }
 
