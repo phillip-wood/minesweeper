@@ -91,6 +91,6 @@ function countSurroundingMines (cell) {
 }
 
 function playSound2(){
-  let audio2 = new Audio('clap.wav');
+  let audio2 = new Audio('clap.mp3');
   audio2.play();
  }
